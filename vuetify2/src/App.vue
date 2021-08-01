@@ -27,9 +27,11 @@
           <v-list-item-title>{{ nav_list.name }}</v-list-item-title>
         </v-list-item-content>
         </template>
-          <v-list-item v-for="list in nav_list.lists" :key="list">
+          <v-list-item v-for="list in nav_list.lists" 
+          :key="list.name"
+          :to="list.link">
             <v-list-item-content>
-              <v-list-item-title>{{list}}</v-list-item-title>
+              <v-list-item-title>{{list.name}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -52,7 +54,8 @@
       <!-- outlinedで枠線だけの表示 -->
     <v-toolbar-items>
       <!-- v-toolbar-itemsに入れることで、バーいっぱいに選択領域が拡大する -->
-      <v-btn text>FOR ENTERPRISE</v-btn>
+      <v-btn text to="/enterprise">FOR ENTERPRISE</v-btn>
+      <!-- routerのindex.jsに記述あり -->
       <v-menu offset-y>
         <template v-slot:activator="{on}">
           <!-- 特定の条件時(クリック時・ホバー時のみなど）のみポップアップする場合のトリガー用のスロットとして用意されている。 -->
@@ -61,7 +64,9 @@
         </template>
         <v-list>
           <v-subheader>Get help</v-subheader>
-        <v-list-item v-for="support in supports" :key="support.name">
+        <v-list-item v-for="support in supports" 
+        :key="support.name"
+        :to="support.link">
           <v-list-item-icon>
             <v-icon>{{support.icon}}</v-icon>
           </v-list-item-icon>
@@ -87,43 +92,63 @@ export default {
     return{
       drawer: null,
       supports:[
-          {name: 'Consulting and suppourt',icon: 'mdi-vuetify'},
-          {name: 'Discord community',icon: 'mdi-discord'},
-          {name: 'Report a bug',icon: 'mdi-bug'},
-          {name: 'Github issue board',icon: 'mdi-github'},
-          {name: 'Stack overview',icon: 'mdi-stack-overflow'},
-          // mdi-のつけ忘れに注意
-        ],
-        nav_lists:[
-        {
-          name: 'Getting Started',
-          icon: 'mdi-speedometer',
-          lists:['Quick Start','Pre-made layouts']
-        },
-        {
-          name: 'Customization',
-          icon: 'mdi-cogs' 
-        },
-        {
-          name: 'Styles & animations',
-          icon: 'mdi-palette',
-          lists:['Colors','Content','Display']
-        },
-        {
-          name: 'UI Components',
-          icon: 'mdi-view-dashboard',
-          lists:['API explorer','Alerts']
-        },
-        {
-          name: 'Directives',
-          icon: 'mdi-function'
-        },
-        {
-          name: 'Preminum themes',
-          icon: 'mdi-vuetify'
-        },
-      ]
-    }
+  {
+    name: 'Consulting and suppourt',
+    icon: 'mdi-vuetify',
+    link:'/consulting-and-support'
   },
+  {
+    name: 'Discord community',
+    icon: 'mdi-discord',
+    link:'/discord-community'},
+  {
+    name: 'Report a bug',
+    icon: 'mdi-bug',
+    link:'/report-a-bug'
+  },
+  {
+    name: 'Github issue board',
+    icon: 'mdi-github-face',
+    link:'/guthub-issue-board'
+  },
+  {
+    name: 'Stack overview',
+    icon: 'mdi-stack-overflow',
+    link:'/stack-overview'
+  },
+],
+      // mdi-のつけ忘れに注意
+    nav_lists:[
+    {
+      name: 'Getting Started',
+      icon: 'mdi-speedometer',
+      lists:[{name:'Quick Start',link:'/quick-start'},
+      {name:'Pre-made layouts',link:'/pre-made-layouts'}]
+    },
+    {
+      name: 'Customization',
+      icon: 'mdi-cogs' 
+    },
+    {
+      name: 'Styles & animations',
+      icon: 'mdi-palette',
+      lists:['Colors','Content','Display']
+    },
+    {
+      name: 'UI Components',
+      icon: 'mdi-view-dashboard',
+      lists:['API explorer','Alerts']
+    },
+    {
+      name: 'Directives',
+      icon: 'mdi-function'
+    },
+    {
+      name: 'Preminum themes',
+      icon: 'mdi-vuetify'
+    },
+  ]
+}
+},
 };
 </script>
