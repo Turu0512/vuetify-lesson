@@ -15,13 +15,26 @@
       <!-- textを設定すると背景と同じ色になって、結果透明に見える -->
       <!-- <v-btn outlined>button</v-btn> -->
       <!-- outlinedで枠線だけの表示 -->
-      <v-toolbar-items>
-      <v-btn text>FOR ENTERPRISE</v-btn>
-      <v-btn text>SUPPORT</v-btn>
-      </v-toolbar-items>
+    <v-toolbar-items>
       <!-- v-toolbar-itemsに入れることで、バーいっぱいに選択領域が拡大する -->
-
+      <v-btn text>FOR ENTERPRISE</v-btn>
+      <v-menu offset-y>
+        <template v-slot:activator="{on}">
+          <!-- 特定の条件時(クリック時・ホバー時のみなど）のみポップアップする場合のトリガー用のスロットとして用意されている。 -->
+        <v-btn text v-on="on">SUPPORT</v-btn>
+        </template>
+        <v-list>
+          <v-subheader>Get help</v-subheader>
+        <v-list-item v-for="support in supports" :key="support">
+          <v-list-item-content>
+          <v-list-item-title>{{ support }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-toolbar-items>
     </v-app-bar>
+        
     <v-footer dark app>Vuetify</v-footer>
   </v-app>
 </template>
@@ -31,7 +44,14 @@ export default {
   name: 'App',
   data(){
     return{
-      drawer: null
+      drawer: null,
+      supports:[
+          'Consulting and suppourt',
+          'Discord community',
+          'Report a bug',
+          'Github issue board',
+          'Stack overview'
+        ]
     }
   },
 };
